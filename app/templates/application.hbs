@@ -1,7 +1,12 @@
-{{page-title "FrontendSmartIpdcGeneratorGroup8"}}
+{{page-title "Smart IPDC product generation"}}
 
-{{!-- The following component displays Ember's default welcome message. --}}
-<WelcomePage />
-{{!-- Feel free to remove this! --}}
+<AuModalContainer />
+
+<AuApp>
+  <MainHeader @appTitle="Smart IPDC Product Generator" @homeRoute="index" />
+  {{outlet}}
+</AuApp>
+
+<AuToaster @position="bottom" />
 
 {{outlet}}
