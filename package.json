@@ -65,7 +65,7 @@
     "qunit": "^2.19.4",
     "qunit-dom": "^2.0.0",
     "sass": "^1.79.4",
-    "tracked-built-ins": "^3.1.1",
+    "tracked-built-ins": "^3.3.0",
     "webpack": "^5.78.0"
   },
   "engines": {

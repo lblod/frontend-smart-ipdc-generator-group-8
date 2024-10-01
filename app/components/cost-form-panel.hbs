@@ -1,0 +1,37 @@
+<AuPanel class="au-u-margin-bottom-tiny au-u-flex-self-stretch" as |Section|>
+  <Section>
+    <AuToolbar>
+      <div class="au-u-flex au-u-flex--column">
+        <AuLabel>
+          Titel
+        </AuLabel>
+        <AuInput
+          value={{@cost.title}}
+          {{on "input" (with-value (fn this.updateProperty @cost "title"))}}
+        />
+      </div>
+      <div>
+        <AuButtonGroup>
+          <AuButton
+            @skin="naked"
+            @icon="bin"
+            @alert={{true}}
+            {{on "click" @remove}}
+          >
+            Verwijder
+          </AuButton>
+        </AuButtonGroup>
+      </div>
+    </AuToolbar>
+  </Section>
+  <Section>
+    <AuLabel>
+      Omschrijving
+    </AuLabel>
+    <AuTextarea
+      class="au-u-1-1"
+      value={{@cost.description}}
+      {{on "input" (with-value (fn this.updateProperty @cost "description"))}}
+    />
+  </Section>
+</AuPanel>

@@ -7,62 +7,40 @@
       Besluit URI
     </AuLabel>
     <div class="au-u-flex au-u-flex--row au-u-4-5">
-      <AuInput id="decision-uri" class="au-u-margin-right-small au-u-3-5" />
-      <AuButton>Informatie opvragen</AuButton>
+      <AuInput
+        id="decision-uri"
+        class="au-u-margin-right-small au-u-3-5"
+        value={{this.decisionUri}}
+        {{on "input" this.updateDecisionUri}}
+      />
+      <AuButton
+        {{on "click" (perform this.fetchSuggestion)}}
+        @loading={{this.fetchSuggestion.isRunning}}
+      >
+        Informatie opvragen
+      </AuButton>
     </div>
-
   </AuFormRow>
   <AuFormRow @alignment="default">
-    <AuLabel for="public-service-name">
+    <AuLabel for="public-service-title">
       Titel
     </AuLabel>
-    <AuInput id="public-service-name" />
+    <AuInput
+      id="public-service-title"
+      value={{this.title}}
+      {{on "input" this.updateTitle}}
+    />
   </AuFormRow>
   <AuFormRow @alignment="default">
     <AuLabel for="public-service-description">
       Beschrijving
     </AuLabel>
-    <AuTextarea id="public-service-description" class="au-u-2-5" />
-  </AuFormRow>
-  <AuFormRow @alignment="default" class="au-u-3-5">
-    <AuHeading
-      @level={{2}}
-      @skin={{3}}
-      class="au-u-margin-bottom"
-    >Kosten</AuHeading>
-    <AuPanel
-      class="au-u-margin-bottom-tiny au-u-flex-self-stretch"
-      as |Section|
-    >
-      <Section>
-        <AuToolbar>
-          <div class="au-u-flex au-u-flex--column">
-            <AuLabel>
-              Titel
-            </AuLabel>
-            <AuInput />
-          </div>
-          <div>
-            <AuButtonGroup>
-              <AuButton @skin="naked" @icon="bin" @alert={{true}}>
-                Verwijder
-              </AuButton>
-            </AuButtonGroup>
-          </div>
-        </AuToolbar>
-      </Section>
-      <Section>
-        <AuLabel>
-          Omschrijving
-        </AuLabel>
-        <AuTextarea class="au-u-1-1" />
-      </Section>
-    </AuPanel>
-    <AuButton
-      @icon="plus"
-      @skin="naked"
-      class="au-u-margin-top-small au-u-padding-left-none"
-    >Kost toevoegen</AuButton>
+    <AuTextarea
+      id="public-service-description"
+      class="au-u-2-5"
+      value={{this.description}}
+      {{on "input" this.updateDescription}}
+    />
   </AuFormRow>
   <AuFormRow @alignment="default" class="au-u-3-5">
     <AuHeading
@@ -70,38 +48,17 @@
       @skin={{3}}
       class="au-u-margin-bottom"
     >Voorwaarden</AuHeading>
-    <AuPanel
-      class="au-u-margin-bottom-tiny au-u-flex-self-stretch"
-      as |Section|
-    >
-      <Section>
-        <AuToolbar>
-          <div class="au-u-flex au-u-flex--column">
-            <AuLabel>
-              Titel
-            </AuLabel>
-            <AuInput />
-          </div>
-          <div>
-            <AuButtonGroup>
-              <AuButton @skin="naked" @icon="bin" @alert={{true}}>
-                Verwijder
-              </AuButton>
-            </AuButtonGroup>
-          </div>
-        </AuToolbar>
-      </Section>
-      <Section>
-        <AuLabel>
-          Omschrijving
-        </AuLabel>
-        <AuTextarea class="au-u-1-1" />
-      </Section>
-    </AuPanel>
+    {{#each this.requirements as |requirement|}}
+      <RequirementFormPanel
+        @requirement={{requirement}}
+        @remove={{fn this.removeRequirement requirement}}
+      />
+    {{/each}}
     <AuButton
       @icon="plus"
       @skin="naked"
       class="au-u-margin-top-small au-u-padding-left-none"
+      {{on "click" this.addRequirement}}
     >Voorwaarde toevoegen</AuButton>
   </AuFormRow>
   <AuFormRow @alignment="default" class="au-u-3-5">
@@ -109,48 +66,40 @@
       @level={{2}}
       @skin={{3}}
       class="au-u-margin-bottom"
-    >Procedures</AuHeading>
-    <AuPanel
-      class="au-u-margin-bottom-tiny au-u-flex-self-stretch"
-      as |Section|
-    >
-      <Section>
-        <AuToolbar>
-          <div class="au-u-flex au-u-flex--column">
-            <AuLabel>
-              Titel
-            </AuLabel>
-            <AuInput />
-          </div>
-          <div>
-            <AuButtonGroup>
-              <AuButton @skin="naked" @icon="bin" @alert={{true}}>
-                Verwijder
-              </AuButton>
-            </AuButtonGroup>
-          </div>
-        </AuToolbar>
-      </Section>
-      <Section>
-        <AuLabel>
-          Omschrijving
-        </AuLabel>
-        <AuTextarea class="au-u-1-1" />
-      </Section>
-    </AuPanel>
+    >Kosten</AuHeading>
+    {{#each this.costs as |cost|}}
+      <CostFormPanel @cost={{cost}} @remove={{fn this.removeCost cost}} />
+    {{/each}}
     <AuButton
       @icon="plus"
       @skin="naked"
       class="au-u-margin-top-small au-u-padding-left-none"
+      {{on "click" this.addCost}}
+    >Kost toevoegen</AuButton>
+  </AuFormRow>
+  <AuFormRow @alignment="default" class="au-u-3-5">
+    <AuHeading
+      @level={{2}}
+      @skin={{3}}
+      class="au-u-margin-bottom"
+    >Procedures</AuHeading>
+    {{#each this.procedures as |procedure|}}
+      <ProcedureFormPanel
+        @procedure={{procedure}}
+        @remove={{fn this.removeProcedure procedure}}
+      />
+    {{/each}}
+    <AuButton
+      @icon="plus"
+      @skin="naked"
+      class="au-u-margin-top-small au-u-padding-left-none"
+      {{on "click" this.addProcedure}}
     >Procedure toevoegen</AuButton>
   </AuFormRow>
   <AuFormRow>
     <AuButtonGroup>
-      <AuButton>
+      <AuButton {{on "click" this.submit}}>
         Verstuur
-      </AuButton>
-      <AuButton @skin="link">
-        Annuleer
       </AuButton>
     </AuButtonGroup>
   </AuFormRow>
