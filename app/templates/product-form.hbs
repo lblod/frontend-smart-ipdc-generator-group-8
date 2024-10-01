@@ -1,0 +1,157 @@
+{{page-title "Create IPDC product"}}
+<AuHeading @level={{1}} @skin={{2}} class="au-u-margin-bottom">Nieuw product
+  aanmaken</AuHeading>
+<form class="au-c-form">
+  <AuFormRow @alignment="default">
+    <AuLabel for="decision-uri">
+      Besluit URI
+    </AuLabel>
+    <div class="au-u-flex au-u-flex--row au-u-4-5">
+      <AuInput id="decision-uri" class="au-u-margin-right-small au-u-3-5" />
+      <AuButton>Informatie opvragen</AuButton>
+    </div>
+
+  </AuFormRow>
+  <AuFormRow @alignment="default">
+    <AuLabel for="public-service-name">
+      Titel
+    </AuLabel>
+    <AuInput id="public-service-name" />
+  </AuFormRow>
+  <AuFormRow @alignment="default">
+    <AuLabel for="public-service-description">
+      Beschrijving
+    </AuLabel>
+    <AuTextarea id="public-service-description" class="au-u-2-5" />
+  </AuFormRow>
+  <AuFormRow @alignment="default" class="au-u-3-5">
+    <AuHeading
+      @level={{2}}
+      @skin={{3}}
+      class="au-u-margin-bottom"
+    >Kosten</AuHeading>
+    <AuPanel
+      class="au-u-margin-bottom-tiny au-u-flex-self-stretch"
+      as |Section|
+    >
+      <Section>
+        <AuToolbar>
+          <div class="au-u-flex au-u-flex--column">
+            <AuLabel>
+              Titel
+            </AuLabel>
+            <AuInput />
+          </div>
+          <div>
+            <AuButtonGroup>
+              <AuButton @skin="naked" @icon="bin" @alert={{true}}>
+                Verwijder
+              </AuButton>
+            </AuButtonGroup>
+          </div>
+        </AuToolbar>
+      </Section>
+      <Section>
+        <AuLabel>
+          Omschrijving
+        </AuLabel>
+        <AuTextarea class="au-u-1-1" />
+      </Section>
+    </AuPanel>
+    <AuButton
+      @icon="plus"
+      @skin="naked"
+      class="au-u-margin-top-small au-u-padding-left-none"
+    >Kost toevoegen</AuButton>
+  </AuFormRow>
+  <AuFormRow @alignment="default" class="au-u-3-5">
+    <AuHeading
+      @level={{2}}
+      @skin={{3}}
+      class="au-u-margin-bottom"
+    >Voorwaarden</AuHeading>
+    <AuPanel
+      class="au-u-margin-bottom-tiny au-u-flex-self-stretch"
+      as |Section|
+    >
+      <Section>
+        <AuToolbar>
+          <div class="au-u-flex au-u-flex--column">
+            <AuLabel>
+              Titel
+            </AuLabel>
+            <AuInput />
+          </div>
+          <div>
+            <AuButtonGroup>
+              <AuButton @skin="naked" @icon="bin" @alert={{true}}>
+                Verwijder
+              </AuButton>
+            </AuButtonGroup>
+          </div>
+        </AuToolbar>
+      </Section>
+      <Section>
+        <AuLabel>
+          Omschrijving
+        </AuLabel>
+        <AuTextarea class="au-u-1-1" />
+      </Section>
+    </AuPanel>
+    <AuButton
+      @icon="plus"
+      @skin="naked"
+      class="au-u-margin-top-small au-u-padding-left-none"
+    >Voorwaarde toevoegen</AuButton>
+  </AuFormRow>
+  <AuFormRow @alignment="default" class="au-u-3-5">
+    <AuHeading
+      @level={{2}}
+      @skin={{3}}
+      class="au-u-margin-bottom"
+    >Procedures</AuHeading>
+    <AuPanel
+      class="au-u-margin-bottom-tiny au-u-flex-self-stretch"
+      as |Section|
+    >
+      <Section>
+        <AuToolbar>
+          <div class="au-u-flex au-u-flex--column">
+            <AuLabel>
+              Titel
+            </AuLabel>
+            <AuInput />
+          </div>
+          <div>
+            <AuButtonGroup>
+              <AuButton @skin="naked" @icon="bin" @alert={{true}}>
+                Verwijder
+              </AuButton>
+            </AuButtonGroup>
+          </div>
+        </AuToolbar>
+      </Section>
+      <Section>
+        <AuLabel>
+          Omschrijving
+        </AuLabel>
+        <AuTextarea class="au-u-1-1" />
+      </Section>
+    </AuPanel>
+    <AuButton
+      @icon="plus"
+      @skin="naked"
+      class="au-u-margin-top-small au-u-padding-left-none"
+    >Procedure toevoegen</AuButton>
+  </AuFormRow>
+  <AuFormRow>
+    <AuButtonGroup>
+      <AuButton>
+        Verstuur
+      </AuButton>
+      <AuButton @skin="link">
+        Annuleer
+      </AuButton>
+    </AuButtonGroup>
+  </AuFormRow>
+</form>

@@ -4,9 +4,35 @@
 
 <AuApp>
   <MainHeader @appTitle="Smart IPDC Product Generator" @homeRoute="index" />
-  {{outlet}}
+  <AuMainContainer as |m|>
+    <m.sidebar>
+      <m.sidebar>
+        <div class="au-c-sidebar">
+          <div class="au-c-sidebar__content">
+            <nav>
+              <ul class="au-c-list-navigation">
+                <li class="au-c-list-navigation__item">
+                  <AuNavigationLink @route="index">
+                    Producten
+                  </AuNavigationLink>
+                </li>
+                <li class="au-c-list-navigation__item">
+                  <AuNavigationLink @route="product-form">
+                    Product aanmaken
+                  </AuNavigationLink>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </m.sidebar>
+    </m.sidebar>
+    <m.content @scroll={{true}}>
+      <div class="au-o-box">
+        {{outlet}}
+      </div>
+    </m.content>
+  </AuMainContainer>
 </AuApp>
 
 <AuToaster @position="bottom" />
-
-{{outlet}}
