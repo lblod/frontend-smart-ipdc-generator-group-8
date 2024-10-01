@@ -21,6 +21,10 @@
       </AuButton>
     </div>
   </AuFormRow>
+  <AuAlert @icon="alert-triangle" @title="Opgelet" class="au-u-3-5" @skin="warning" @closable={{false}}>
+    <p>De volgende informatie werd gedeeltelijk via AI gegenereerd. Gelieve de
+      ingevulde informatie na te kijken alvorens het product in te dienen.</p>
+  </AuAlert>
   <AuFormRow @alignment="default">
     <AuLabel for="public-service-name">
       Titel
@@ -99,7 +103,10 @@
   </AuFormRow>
   <AuFormRow>
     <AuButtonGroup>
-      <AuButton {{on "click" (perform this.submit)}} @loading={{this.submit.isRunning}}>
+      <AuButton
+        {{on "click" (perform this.submit)}}
+        @loading={{this.submit.isRunning}}
+      >
         Verstuur
       </AuButton>
     </AuButtonGroup>
