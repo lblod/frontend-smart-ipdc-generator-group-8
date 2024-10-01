@@ -29,9 +29,13 @@ export default class ProductsService extends Service {
     };
     const response = await fetch('/decision-consumer/decision', {
       method: 'POST',
-      body: {
-        uri: decisionUri,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        uri: submissionUri,
+      }),
     });
     const data = await response.json();
     return data;
