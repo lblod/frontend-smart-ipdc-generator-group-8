@@ -14,7 +14,7 @@ export default class ProductFormController extends Controller {
     const suggestion = await this.productsService.fetchSuggestion(
       this.decisionUri
     );
-    this.title = suggestion.title ?? '';
+    this.name = suggestion.name ?? '';
     this.description = suggestion.description ?? '';
     this.costs = suggestion.costs?.map((cost) => tracked(cost)) ?? [];
     this.procedures =
@@ -25,7 +25,7 @@ export default class ProductFormController extends Controller {
 
   @tracked decisionUri = '';
 
-  @tracked title = '';
+  @tracked name = '';
 
   @tracked description = '';
 
@@ -41,8 +41,8 @@ export default class ProductFormController extends Controller {
   }
 
   @action
-  updateTitle(event) {
-    this.title = event.target.value;
+  updateName(event) {
+    this.name = event.target.value;
   }
 
   @action
@@ -55,7 +55,7 @@ export default class ProductFormController extends Controller {
     this.costs = [
       ...this.costs,
       tracked({
-        title: '',
+        name: '',
         description: '',
       }),
     ];
@@ -71,7 +71,7 @@ export default class ProductFormController extends Controller {
     this.procedures = [
       ...this.procedures,
       tracked({
-        title: '',
+        name: '',
         description: '',
       }),
     ];
@@ -87,7 +87,7 @@ export default class ProductFormController extends Controller {
     this.requirements = [
       ...this.requirements,
       tracked({
-        title: '',
+        name: '',
         description: '',
       }),
     ];
@@ -101,19 +101,19 @@ export default class ProductFormController extends Controller {
   submit = task(async () => {
     const costs = this.costs.map((cost) =>
       this.store.createRecord('cost', {
-        title: stringSet(cost.title),
+        name: stringSet(cost.name),
         description: stringSet(cost.description),
       })
     );
     const requirements = this.requirements.map((requirement) =>
       this.store.createRecord('requirement', {
-        title: stringSet(requirement.title),
+        name: stringSet(requirement.name),
         description: stringSet(requirement.description),
       })
     );
     const procedures = this.procedures.map((procedure) =>
       this.store.createRecord('procedure', {
-        title: stringSet(procedure.title),
+        name: stringSet(procedure.name),
         description: stringSet(procedure.description),
       })
     );
@@ -121,7 +121,7 @@ export default class ProductFormController extends Controller {
     await Promise.all(requirements.map((requirement) => requirement.save()));
     await Promise.all(procedures.map((procedure) => procedure.save()));
     const publicService = this.store.createRecord('public-service', {
-      title: stringSet(this.title),
+      name: stringSet(this.name),
       description: stringSet(this.description),
       requirements,
       procedures,
@@ -133,7 +133,7 @@ export default class ProductFormController extends Controller {
 
   resetData() {
     this.decisionUri = '';
-    this.title = '';
+    this.name = '';
     this.description = '';
     this.requirements = [];
     this.procedures = [];

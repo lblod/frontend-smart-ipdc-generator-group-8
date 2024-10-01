@@ -6,8 +6,8 @@
           Titel
         </AuLabel>
         <AuInput
-          value={{@procedure.title}}
-          {{on "input" (with-value (fn this.updateProperty @procedure "title"))}}
+          value={{@procedure.name}}
+          {{on "input" (with-value (fn this.updateProperty @procedure "name"))}}
         />
       </div>
       <div>

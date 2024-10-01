@@ -6,8 +6,8 @@
           Titel
         </AuLabel>
         <AuInput
-          value={{@requirement.title}}
-          {{on "input" (with-value (fn this.updateProperty @requirement "title"))}}
+          value={{@requirement.name}}
+          {{on "input" (with-value (fn this.updateProperty @requirement "name"))}}
         />
       </div>
       <div>

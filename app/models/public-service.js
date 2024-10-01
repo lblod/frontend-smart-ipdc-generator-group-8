@@ -1,7 +1,7 @@
 import Model, { attr, belongsTo, hasMany } from '@ember-data/model';
 
 export default class PublicService extends Model {
-  @attr('language-string-set') title;
+  @attr('language-string-set') name;
   @attr('language-string-set') description;
 
   @belongsTo('concept', { async: true, inverse: null }) type;

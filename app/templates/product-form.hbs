@@ -22,14 +22,14 @@
     </div>
   </AuFormRow>
   <AuFormRow @alignment="default">
-    <AuLabel for="public-service-title">
+    <AuLabel for="public-service-name">
       Titel
     </AuLabel>
     <AuInput
-      id="public-service-title"
+      id="public-service-name"
       class="au-u-2-5"
-      value={{this.title}}
-      {{on "input" this.updateTitle}}
+      value={{this.name}}
+      {{on "input" this.updateName}}
     />
   </AuFormRow>
   <AuFormRow @alignment="default">
