@@ -1,9 +1,6 @@
 import Service from '@ember/service';
-import { task } from 'ember-concurrency';
 
 export default class ProductsService extends Service {
-  products = [];
-
   async fetchSuggestion(submissionUri) {
     return {
       name: 'Tegemoetkoming in de kosten voor kadervorming voor animatoren in het jeugdwerk',
@@ -40,12 +37,5 @@ export default class ProductsService extends Service {
     });
     const data = await response.json();
     return data;
-  }
-  fetchProducts = task(async () => {
-    return this.products;
-  });
-
-  addProduct(product) {
-    this.products = [...this.products, product];
   }
 }
