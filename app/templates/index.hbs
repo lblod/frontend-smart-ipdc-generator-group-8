@@ -1,2 +1,38 @@
 {{page-title "IPDC Products"}}
-<AuHeading @level={{1}} @skin={{2}} class="au-u-margin-bottom">Producten</AuHeading>
+<AuHeading
+  @level={{1}}
+  @skin={{2}}
+  class="au-u-margin-bottom"
+>Producten</AuHeading>
+<AuDataTable
+  @content={{this.productsRequest.value}}
+  @isLoading={{this.productsRequest.isLoading}}
+  @noDataMessage="No products submitted"
+  @sort={{this.sort}}
+  @page={{this.page}}
+  @size={{this.pageSize}}
+  as |table|
+>
+  <table.content as |c|>
+    <c.header>
+      <AuDataTableThSortable
+        @field=":no-case:name"
+        @currentSorting={{this.sort}}
+        @label="Naam"
+      />
+      <th>Beschrijving</th>
+    </c.header>
+    <c.body as |product|>
+      <td>
+        {{#each product.name as |name|}}
+          {{name.content}}
+        {{/each}}
+      </td>
+      <td>
+        {{#each product.description as |description|}}
+          {{description.content}}
+        {{/each}}
+      </td>
+    </c.body>
+  </table.content>
+</AuDataTable>
