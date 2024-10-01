@@ -1,7 +1,7 @@
 import Model, { attr } from '@ember-data/model';
 
 export default class Requirement extends Model {
-  @attr('string') title;
-  @attr('string') description;
+  @attr('language-string-set') title;
+  @attr('language-string-set') description;
   @attr('number') order;
 }

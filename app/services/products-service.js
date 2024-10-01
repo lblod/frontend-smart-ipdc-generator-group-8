@@ -18,7 +18,7 @@ export default class ProductsService extends Service {
     return this.products;
   });
 
-  addProduct = task(async (product) => {
-    this.products.push(product);
-  });
+  addProduct(product) {
+    this.products = [...this.products, product];
+  }
 }

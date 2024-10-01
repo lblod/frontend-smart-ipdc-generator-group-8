@@ -3,12 +3,17 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from 'tracked-built-ins';
 import { task, timeout } from 'ember-concurrency';
+import { stringSet } from '../utils';
 export default class ProductFormController extends Controller {
-  @service products;
+  @service productsService;
+  @service store;
+  @service router;
 
   fetchSuggestion = task(async () => {
     await timeout(400);
-    const suggestion = await this.products.fetchSuggestion(this.decisionUri);
+    const suggestion = await this.productsService.fetchSuggestion(
+      this.decisionUri
+    );
     this.title = suggestion.title ?? '';
     this.description = suggestion.description ?? '';
     this.costs = suggestion.costs?.map((cost) => tracked(cost)) ?? [];
@@ -24,38 +29,11 @@ export default class ProductFormController extends Controller {
 
   @tracked description = '';
 
-  @tracked costs = [
-    tracked({
-      title: 'Cost 1',
-      description: 'Description of cost 1',
-    }),
-    tracked({
-      title: 'Cost 2',
-      description: 'Description of cost 2',
-    }),
-  ];
+  @tracked costs = [];
 
-  @tracked procedures = [
-    tracked({
-      title: 'Procedure 1',
-      description: 'Description of procedure 1',
-    }),
-    tracked({
-      title: 'Procedure 2',
-      description: 'Description of procedure 2',
-    }),
-  ];
+  @tracked procedures = [];
 
-  @tracked requirements = [
-    tracked({
-      title: 'Requirement 1',
-      description: 'Description of requirement 1',
-    }),
-    tracked({
-      title: 'Requirement 2',
-      description: 'Description of requirement 2',
-    }),
-  ];
+  @tracked requirements = [];
 
   @action
   updateDecisionUri(event) {
@@ -121,15 +99,46 @@ export default class ProductFormController extends Controller {
   }
 
   @action
-  submit() {
-    console.log({
-      decisionUri: this.decisionUri,
-      title: this.title,
-      description: this.description,
-      requirements: this.requirements,
-      costs: this.costs,
-      procedures: this.procedures,
+  async submit() {
+    const costs = this.costs.map((cost) =>
+      this.store.createRecord('cost', {
+        title: stringSet(cost.title),
+        description: stringSet(cost.description),
+      })
+    );
+    const requirements = this.requirements.map((requirement) =>
+      this.store.createRecord('requirement', {
+        title: stringSet(requirement.title),
+        description: stringSet(requirement.description),
+      })
+    );
+    const procedures = this.procedures.map((procedure) =>
+      this.store.createRecord('procedure', {
+        title: stringSet(procedure.title),
+        description: stringSet(procedure.description),
+      })
+    );
+    await Promise.all(costs.map((cost) => cost.save()));
+    await Promise.all(requirements.map((requirement) => requirement.save()));
+    await Promise.all(procedures.map((procedure) => procedure.save()));
+    const publicService = this.store.createRecord('public-service', {
+      title: stringSet(this.title),
+      description: stringSet(this.description),
+      requirements,
+      procedures,
+      costs,
     });
-    console.log('Submit');
+    await publicService.save();
+    this.productsService.addProduct(publicService);
+    // this.router.transitionTo('index');
+  }
+
+  resetData() {
+    this.decisionUri = '';
+    this.title = '';
+    this.description = '';
+    this.requirements = [];
+    this.procedures = [];
+    this.costs = [];
   }
 }
