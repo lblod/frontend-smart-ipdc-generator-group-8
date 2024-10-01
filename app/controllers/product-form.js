@@ -98,8 +98,7 @@ export default class ProductFormController extends Controller {
     this.requirements = this.requirements.filter((r) => r != requirement);
   }
 
-  @action
-  async submit() {
+  submit = task(async () => {
     const costs = this.costs.map((cost) =>
       this.store.createRecord('cost', {
         title: stringSet(cost.title),
@@ -129,9 +128,8 @@ export default class ProductFormController extends Controller {
       costs,
     });
     await publicService.save();
-    this.productsService.addProduct(publicService);
-    // this.router.transitionTo('index');
-  }
+    this.router.transitionTo('index');
+  });
 
   resetData() {
     this.decisionUri = '';

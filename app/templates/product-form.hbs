@@ -27,6 +27,7 @@
     </AuLabel>
     <AuInput
       id="public-service-title"
+      class="au-u-2-5"
       value={{this.title}}
       {{on "input" this.updateTitle}}
     />
@@ -98,7 +99,7 @@
   </AuFormRow>
   <AuFormRow>
     <AuButtonGroup>
-      <AuButton {{on "click" this.submit}}>
+      <AuButton {{on "click" (perform this.submit)}} @loading={{this.submit.isRunning}}>
         Verstuur
       </AuButton>
     </AuButtonGroup>
