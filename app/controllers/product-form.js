@@ -12,7 +12,7 @@ export default class ProductFormController extends Controller {
   fetchSuggestion = task(async () => {
     await timeout(400);
     const suggestion = await this.productsService.fetchSuggestion(
-      this.decisionUri
+      this.submissionUri
     );
     this.name = suggestion.name ?? '';
     this.description = suggestion.description ?? '';
@@ -23,7 +23,7 @@ export default class ProductFormController extends Controller {
       suggestion.requirements?.map((requirement) => tracked(requirement)) ?? [];
   });
 
-  @tracked decisionUri = '';
+  @tracked submissionUri = '';
 
   @tracked name = '';
 
@@ -36,8 +36,8 @@ export default class ProductFormController extends Controller {
   @tracked requirements = [];
 
   @action
-  updateDecisionUri(event) {
-    this.decisionUri = event.target.value;
+  updateSubmissionUri(event) {
+    this.submissionUri = event.target.value;
   }
 
   @action
@@ -132,7 +132,7 @@ export default class ProductFormController extends Controller {
   });
 
   resetData() {
-    this.decisionUri = '';
+    this.submissionUri = '';
     this.name = '';
     this.description = '';
     this.requirements = [];

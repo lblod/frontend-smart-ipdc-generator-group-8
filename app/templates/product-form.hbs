@@ -10,8 +10,8 @@
       <AuInput
         id="decision-uri"
         class="au-u-margin-right-small au-u-3-5"
-        value={{this.decisionUri}}
-        {{on "input" this.updateDecisionUri}}
+        value={{this.submissionUri}}
+        {{on "input" this.updateSubmissionUri}}
       />
       <AuButton
         {{on "click" (perform this.fetchSuggestion)}}
