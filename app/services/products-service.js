@@ -6,49 +6,48 @@ export default class ProductsService extends Service {
   @service store;
 
   async fetchSuggestion(submissionUri) {
-    const data = {
-      name: 'Tegemoetkoming in de kosten voor kadervorming voor animatoren in het jeugdwerk',
-      description:
-        'Vanaf 16 jaar kan een jongere animator in het jeugdwerk worden. Hiervoor kan hij kadervorming volgen.\n\nJe krijgt een tegemoetkoming voor de kosten van het volgen van de kadervorming.',
-      procedure: [
-        {
-          name: 'Aanvraag procedure',
-          description:
-            'Nadat je hebt deelgenomen, vul je het aanvraagformulier in.\n\nJe kan het aanvraagformulier online invullen.',
-        },
-      ],
-      cost: [],
-      condition: [
-        { name: 'Minimumleeftijd', description: 'Minimumleeftijd: 15 jaar' },
-        { name: 'Plaats', description: 'Gedomicilieerd in Sint-Niklaas' },
-        { name: 'Maximumleeftijd', description: 'Maximumleeftijd: 30 jaar' },
-        {
-          name: 'Bewijs',
-          description:
-            'Een bewijs van deelname van minstens vier aaneensluitende vormingsuren kunnen worden voorgelegd.',
-        },
-      ],
-      entry_theme: ['Cultuur, Sport en Vrije Tijd'],
-      entry_type: 'Financieel voordeel',
-      entry_doelgroep: ['Burger', 'Organisatie'],
-      bevoegde_bestuursniveau: ['Provinciale overheid'],
-      uitvoerende_bestuursniveau: ['Lokale overheid'],
-    };
-    // This doesn't work on deployed server as there are issues related to HTTPS-HTTP mixed content
-    // const response = await fetch(
-    //   'http://smart-ipdc-generator.hackathon-ai-8.s.redhost.be:8080/decision',
-    //   {
-    //     method: 'POST',
-    //     headers: {
-    //       Accept: 'application/json',
-    //       'Content-Type': 'application/json',
+    // const data = {
+    //   name: 'Tegemoetkoming in de kosten voor kadervorming voor animatoren in het jeugdwerk',
+    //   description:
+    //     'Vanaf 16 jaar kan een jongere animator in het jeugdwerk worden. Hiervoor kan hij kadervorming volgen.\n\nJe krijgt een tegemoetkoming voor de kosten van het volgen van de kadervorming.',
+    //   procedure: [
+    //     {
+    //       name: 'Aanvraag procedure',
+    //       description:
+    //         'Nadat je hebt deelgenomen, vul je het aanvraagformulier in.\n\nJe kan het aanvraagformulier online invullen.',
     //     },
-    //     body: JSON.stringify({
-    //       uri: submissionUri,
-    //     }),
-    //   }
-    // );
-    // const data = (await response.json()).entry;
+    //   ],
+    //   cost: [],
+    //   condition: [
+    //     { name: 'Minimumleeftijd', description: 'Minimumleeftijd: 15 jaar' },
+    //     { name: 'Plaats', description: 'Gedomicilieerd in Sint-Niklaas' },
+    //     { name: 'Maximumleeftijd', description: 'Maximumleeftijd: 30 jaar' },
+    //     {
+    //       name: 'Bewijs',
+    //       description:
+    //         'Een bewijs van deelname van minstens vier aaneensluitende vormingsuren kunnen worden voorgelegd.',
+    //     },
+    //   ],
+    //   entry_theme: ['Cultuur, Sport en Vrije Tijd'],
+    //   entry_type: 'Financieel voordeel',
+    //   entry_doelgroep: ['Burger', 'Organisatie'],
+    //   bevoegde_bestuursniveau: ['Provinciale overheid'],
+    //   uitvoerende_bestuursniveau: ['Lokale overheid'],
+    // };
+    const response = await fetch(
+      'https://backend.hackathon-ai-8.s.redhost.be/decision',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          uri: submissionUri,
+        }),
+      }
+    );
+    const data = (await response.json()).entry;
     const themes = await Promise.all(
       data.entry_theme.map((t) => this.fetchConceptByLabel(t))
     );
