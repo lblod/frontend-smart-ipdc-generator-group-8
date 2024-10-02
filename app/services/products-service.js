@@ -34,6 +34,7 @@ export default class ProductsService extends Service {
       bevoegde_bestuursniveau: ['Provinciale overheid'],
       uitvoerende_bestuursniveau: ['Lokale overheid'],
     };
+    // This doesn't work on deployed server as there are issues related to HTTPS-HTTP mixed content
     // const response = await fetch(
     //   'http://smart-ipdc-generator.hackathon-ai-8.s.redhost.be:8080/decision',
     //   {
