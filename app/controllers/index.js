@@ -17,6 +17,7 @@ export default class ProductFormController extends Controller {
         number: this.page,
         size: this.pageSize,
       },
+      include: ['type'],
     });
   });
 }

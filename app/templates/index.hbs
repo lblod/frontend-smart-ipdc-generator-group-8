@@ -21,6 +21,7 @@
         @label="Naam"
       />
       <th>Beschrijving</th>
+      <th>Type</th>
     </c.header>
     <c.body as |product|>
       <td>
@@ -32,6 +33,9 @@
         {{#each product.description as |description|}}
           {{description.content}}
         {{/each}}
+      </td>
+      <td>
+        {{product.type.label}}
       </td>
     </c.body>
   </table.content>
