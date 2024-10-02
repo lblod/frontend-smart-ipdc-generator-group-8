@@ -9,20 +9,6 @@ export default class ProductFormController extends Controller {
   @service store;
   @service router;
 
-  fetchSuggestion = task(async () => {
-    await timeout(400);
-    const suggestion = await this.productsService.fetchSuggestion(
-      this.submissionUri
-    );
-    this.name = suggestion.name ?? '';
-    this.description = suggestion.description ?? '';
-    this.costs = suggestion.costs?.map((cost) => tracked(cost)) ?? [];
-    this.procedures =
-      suggestion.procedures?.map((procedure) => tracked(procedure)) ?? [];
-    this.requirements =
-      suggestion.requirements?.map((requirement) => tracked(requirement)) ?? [];
-  });
-
   @tracked submissionUri = '';
 
   @tracked name = '';
@@ -34,6 +20,60 @@ export default class ProductFormController extends Controller {
   @tracked procedures = [];
 
   @tracked requirements = [];
+
+  @tracked type;
+
+  @tracked themes = [];
+
+  @tracked bevoegdeBestuursniveaus = [];
+
+  @tracked uitvoerendeBestuursniveaus = [];
+
+  @tracked doelgroepen = [];
+
+  fetchSuggestion = task(async () => {
+    await timeout(400);
+    const suggestion = await this.productsService.fetchSuggestion(
+      this.submissionUri
+    );
+    this.name = suggestion.name ?? '';
+    this.description = suggestion.description ?? '';
+    this.type = null;
+    this.themes = [];
+    this.doelgroepen = [];
+    this.bevoegdeBestuursniveaus = [];
+    this.uitvoerendeBestuursniveaus = [];
+    this.costs = suggestion.costs?.map((cost) => tracked(cost)) ?? [];
+    this.procedures =
+      suggestion.procedures?.map((procedure) => tracked(procedure)) ?? [];
+    this.requirements =
+      suggestion.requirements?.map((requirement) => tracked(requirement)) ?? [];
+  });
+
+  @action
+  setType(value) {
+    this.type = value;
+  }
+
+  @action
+  setThemes(value) {
+    this.themes = value;
+  }
+
+  @action
+  setBevoegdeBestuursniveaus(value) {
+    this.bevoegdeBestuursniveaus = value;
+  }
+
+  @action
+  setUitvoerendeBestuursniveaus(value) {
+    this.uitvoerendeBestuursniveaus = value;
+  }
+
+  @action
+  setDoelgroepen(value) {
+    this.doelgroepen = value;
+  }
 
   @action
   updateSubmissionUri(event) {
@@ -122,6 +162,11 @@ export default class ProductFormController extends Controller {
     await Promise.all(procedures.map((procedure) => procedure.save()));
     const publicService = this.store.createRecord('public-service', {
       name: stringSet(this.name),
+      type: this.type,
+      targetAudiences: this.doelgroepen,
+      thematicAreas: this.themes,
+      competentAuthorityLevels: this.bevoegdeBestuursniveaus,
+      executingAuthorityLevels: this.uitvoerendeBestuursniveaus,
       description: stringSet(this.description),
       requirements,
       procedures,
@@ -135,6 +180,11 @@ export default class ProductFormController extends Controller {
     this.submissionUri = '';
     this.name = '';
     this.description = '';
+    this.type = null;
+    this.themes = [];
+    this.doelgroepen = [];
+    this.uitvoerendeBestuursniveaus = [];
+    this.bevoegdeBestuursniveaus = [];
     this.requirements = [];
     this.procedures = [];
     this.costs = [];

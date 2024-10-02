@@ -1,7 +1,7 @@
 {{page-title "Create IPDC product"}}
 <AuHeading @level={{1}} @skin={{2}} class="au-u-margin-bottom">Nieuw product
   aanmaken</AuHeading>
-<form class="au-c-form">
+<form class="au-o-flow">
   <AuFormRow @alignment="default">
     <AuLabel for="decision-uri">
       Besluit URI
@@ -21,13 +21,22 @@
       </AuButton>
     </div>
   </AuFormRow>
-  <AuAlert @icon="alert-triangle" @title="Opgelet" class="au-u-3-5" @skin="warning" @closable={{false}}>
+  <AuAlert
+    @icon="alert-triangle"
+    @title="Opgelet"
+    class="au-u-3-5"
+    @skin="warning"
+    @closable={{false}}
+  >
     <p>De volgende informatie werd gedeeltelijk via AI gegenereerd. Gelieve de
       ingevulde informatie na te kijken alvorens het product in te dienen.</p>
   </AuAlert>
   <AuFormRow @alignment="default">
     <AuLabel for="public-service-name">
       Titel
+      <AuPill @skin="link" @size="small">
+        AI
+      </AuPill>
     </AuLabel>
     <AuInput
       id="public-service-name"
@@ -35,6 +44,7 @@
       value={{this.name}}
       {{on "input" this.updateName}}
     />
+
   </AuFormRow>
   <AuFormRow @alignment="default">
     <AuLabel for="public-service-description">
@@ -47,6 +57,66 @@
       {{on "input" this.updateDescription}}
     />
   </AuFormRow>
+  <AuFormRow>
+    <AuLabel>
+      Type
+    </AuLabel>
+    <ConceptDropdown
+      @conceptSchemeUri="https://productencatalogus.data.vlaanderen.be/id/conceptscheme/Type"
+      @onChange={{this.setType}}
+      @selected={{this.type}}
+      class="au-u-1-5"
+    />
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel>
+      Themas
+    </AuLabel>
+    <ConceptDropdown
+      @conceptSchemeUri="https://productencatalogus.data.vlaanderen.be/id/conceptscheme/Thema"
+      @multiSelect={{true}}
+      @onChange={{this.setThemes}}
+      @selected={{this.themes}}
+      class="au-u-1-5"
+    />
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel>
+      Doelgroepen
+    </AuLabel>
+    <ConceptDropdown
+      @conceptSchemeUri="https://productencatalogus.data.vlaanderen.be/id/conceptscheme/Doelgroep"
+      @multiSelect={{true}}
+      @onChange={{this.setDoelgroepen}}
+      @selected={{this.doelgroepen}}
+      class="au-u-1-5"
+    />
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel>
+      Bevoegde bestuursniveaus
+    </AuLabel>
+    <ConceptDropdown
+      @conceptSchemeUri="https://productencatalogus.data.vlaanderen.be/id/conceptscheme/BevoegdBestuursniveau"
+      @multiSelect={{true}}
+      @onChange={{this.setBevoegdeBestuursniveaus}}
+      @selected={{this.bevoegdeBestuursniveaus}}
+      class="au-u-1-5"
+    />
+  </AuFormRow>
+  <AuFormRow>
+    <AuLabel>
+      Uitvoerende bestuursniveaus
+    </AuLabel>
+    <ConceptDropdown
+      @conceptSchemeUri="https://productencatalogus.data.vlaanderen.be/id/conceptscheme/UitvoerendBestuursniveau"
+      @multiSelect={{true}}
+      @onChange={{this.setUitvoerendeBestuursniveaus}}
+      @selected={{this.uitvoerendeBestuursniveaus}}
+      class="au-u-1-5"
+    />
+  </AuFormRow>
+
   <AuFormRow @alignment="default" class="au-u-3-5">
     <AuHeading
       @level={{2}}

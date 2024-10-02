@@ -6,6 +6,11 @@ export default class PublicService extends Model {
 
   @belongsTo('concept', { async: true, inverse: null }) type;
 
+  @hasMany('concept', { async: true, inverse: null }) targetAudiences;
+  @hasMany('concept', { async: true, inverse: null }) thematicAreas;
+  @hasMany('concept', { async: true, inverse: null }) competentAuthorityLevels;
+  @hasMany('concept', { async: true, inverse: null }) executingAuthorityLevels;
+
   @hasMany('cost', { async: true, inverse: null }) costs;
   @hasMany('requirement', { async: true, inverse: null }) requirements;
   @hasMany('procedure', { async: true, inverse: null }) procedures;
