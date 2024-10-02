@@ -34,6 +34,9 @@ export default class ProductsService extends Service {
     //   bevoegde_bestuursniveau: ['Provinciale overheid'],
     //   uitvoerende_bestuursniveau: ['Lokale overheid'],
     // };
+
+    // This will probably cause CORS issues, for this to work you need to disable CORS.
+    // The alternative is to use the app with the mock-data defined above
     const response = await fetch(
       'https://backend.hackathon-ai-8.s.redhost.be/decision',
       {
