@@ -1,0 +1,23 @@
+{{#if @multiSelect}}
+  <PowerSelectMultiple
+    @selected={{@selected}}
+    @options={{this.conceptsRequest.value}}
+    @allowClear={{true}}
+    @onChange={{this.onChange}}
+    ...attributes
+    as |concept|
+  >
+    {{concept.label}}
+  </PowerSelectMultiple>
+{{else}}
+  <PowerSelect
+    @selected={{@selected}}
+    @options={{this.conceptsRequest.value}}
+    @allowClear={{true}}
+    @onChange={{this.onChange}}
+    ...attributes
+    as |concept|
+  >
+    {{concept.label}}
+  </PowerSelect>
+{{/if}}
