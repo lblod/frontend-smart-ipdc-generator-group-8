@@ -38,16 +38,14 @@ export default class ProductFormController extends Controller {
     );
     this.name = suggestion.name ?? '';
     this.description = suggestion.description ?? '';
-    this.type = null;
-    this.themes = [];
-    this.doelgroepen = [];
-    this.bevoegdeBestuursniveaus = [];
-    this.uitvoerendeBestuursniveaus = [];
-    this.costs = suggestion.costs?.map((cost) => tracked(cost)) ?? [];
-    this.procedures =
-      suggestion.procedures?.map((procedure) => tracked(procedure)) ?? [];
-    this.requirements =
-      suggestion.requirements?.map((requirement) => tracked(requirement)) ?? [];
+    this.type = suggestion.type;
+    this.themes = suggestion.themes;
+    this.doelgroepen = suggestion.doelgroepen;
+    this.bevoegdeBestuursniveaus = suggestion.bevoegdeBestuursniveaus;
+    this.uitvoerendeBestuursniveaus = suggestion.uitvoerendeBestuursniveaus;
+    this.costs = suggestion.costs;
+    this.procedures = suggestion.procedures;
+    this.requirements = suggestion.requirements;
   });
 
   @action
